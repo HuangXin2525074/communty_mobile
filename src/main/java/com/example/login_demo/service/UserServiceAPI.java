@@ -39,6 +39,10 @@ public interface UserServiceAPI {
     @GET("/Community/logout")
     Call<register> Userlogout();
 
+    @FormUrlEncoded
+    @POST("/Community/user/updatePassword")
+    Call<register> updatePassword(@Field("password")String password,@Field("newPassword")String newPassword,@Field("confirmPassword")String confirmPassword);
+
 
 
 }

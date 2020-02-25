@@ -117,6 +117,8 @@ public class LoginActivity extends AppCompatActivity {
                         login_Username.setText("");
                         login_Password.setText("");
 
+                        System.out.println(register.getMsg());
+
                      Intent intent = new Intent();
                      intent.setClass(context,UserProfileActivity.class);
                      startActivity(intent);

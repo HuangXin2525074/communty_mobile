@@ -78,7 +78,6 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onResponse(Call<UserAPI> call, Response<UserAPI> response) {
 
                 int code = response.code();
-                System.out.println(code);
                 try {
 
                     UserAPI result = response.body();
@@ -105,10 +104,14 @@ public class UserProfileActivity extends AppCompatActivity {
         sendUserLogoutRequest(this);
 
 
+
     }
 
     public void setting(View view){
 
+        Intent intent = new Intent();
+        intent.setClass(this, SettingActivity.class);
+        startActivity(intent);
 
     }
 

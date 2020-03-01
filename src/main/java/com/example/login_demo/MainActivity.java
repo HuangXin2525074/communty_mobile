@@ -1,120 +1,103 @@
 package com.example.login_demo;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.login_demo.model.register;
-import com.example.login_demo.service.UserServiceAPI;
+import com.example.login_demo.base.BaseActivity;
+import com.example.login_demo.main.home.HomeFragment;
+import com.example.login_demo.main.user.ForgetPasswordFragment;
+import com.example.login_demo.main.user.LoginFragment;
+import com.example.login_demo.main.user.RegisterFragment;
+import com.example.login_demo.until.ViewInject;
 
-
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class MainActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.et_username)
-    EditText etUsername;
-    @BindView(R.id.et_password)
-    EditText etPassword;
-    @BindView(R.id.checkBox)
-    CheckBox checkBox;
-    @BindView(R.id.button)
-    Button button;
-
-    Retrofit retrofit;
-
-    UserServiceAPI service;
-
-    @BindView(R.id.et_email)
-    EditText etEmail;
+@ViewInject(mainlayoutid = R.layout.activity_main)
+public class MainActivity extends BaseActivity {
 
 
+    @BindView(R.id.rb_main_home)
+    RadioButton rbMainHome;
+    @BindView(R.id.rb_main_me)
+    RadioButton rbMainMe;
+    @BindView(R.id.rg_main_top)
+    RadioGroup rgMainTop;
+    @BindView(R.id.fl_main_bottom)
+    FrameLayout flMainBottom;
 
+    private SectionStatePagerAdaper sectionStatePagerAdaper;
+
+    private ViewPager mViewPager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        sectionStatePagerAdaper = new SectionStatePagerAdaper(getSupportFragmentManager());
 
+        mViewPager =findViewById(R.id.fl_main_content);
 
+        setupViewPager(mViewPager);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(UserServiceAPI.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        service = retrofit.create(UserServiceAPI.class);
-
+        initCheckListener(this);
 
     }
 
+    private void setupViewPager(ViewPager viewPager){
+        SectionStatePagerAdaper adaper = new SectionStatePagerAdaper(getSupportFragmentManager());
+        adaper.addFragment(new HomeFragment(),"HomeFragment");//index:0
+        adaper.addFragment(new LoginFragment(),"LoginFragment"); // index:1
+        adaper.addFragment(new RegisterFragment(),"RegisterFragment"); // index:2
+        adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index3
 
+        viewPager.setAdapter(adaper);
+    }
 
-    public void SignUp(View view) {
-        String username = etUsername.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-
-        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-            Toast.makeText(MainActivity.this, "no empty value allow", Toast.LENGTH_SHORT).show();
-        } else {
-
-            sendRegisterRequest(username,password,email);
-
-
-        }
+    public void setViewPager(int fragmentNumber){
+        mViewPager.setCurrentItem(fragmentNumber);
 
     }
 
-    public void login1(View view) {
-        Intent intent = new Intent();
-
-        //intent.setClassName("com.example.login_demo","com.example.login_demo.LoginActivity");
-
-        intent.setClass(this,LoginActivity.class);
-        startActivity(intent);
+    @Override
+    public void afterBindView() {
 
     }
 
-    private void sendRegisterRequest(String username,String password, String email){
+    private void initCheckListener(Context context) {
 
-        Call<register> bodyCall = service.Regsiter(username, password, email);
-        bodyCall.enqueue(new Callback<register>() {
+
+        rgMainTop.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onResponse(Call<register> call, Response<register> response) {
-                int code = response.code();
-                System.out.println(code);
-                try {
-                    String msg = response.body().getMsg();
-                    System.out.println(msg);
-                    Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch (checkedId) {
+                    case R.id.rb_main_home:
+                        setViewPager(0);
+                        break;
+                    case R.id.rb_main_me:
+                        setViewPager(1);
+                        break;
                 }
-            }
-
-            @Override
-            public void onFailure(Call<register> call, Throwable t) {
-                System.out.println(t);
             }
         });
 
+
+
     }
+
+
+
+
 
 
 }

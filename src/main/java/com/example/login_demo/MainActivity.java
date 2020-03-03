@@ -12,6 +12,8 @@ import com.example.login_demo.main.home.HomeFragment;
 import com.example.login_demo.main.user.ForgetPasswordFragment;
 import com.example.login_demo.main.user.LoginFragment;
 import com.example.login_demo.main.user.RegisterFragment;
+import com.example.login_demo.main.user.SettingFragment;
+import com.example.login_demo.main.user.UserProfileFragment;
 import com.example.login_demo.until.ViewInject;
 
 import androidx.fragment.app.Fragment;
@@ -58,8 +60,10 @@ public class MainActivity extends BaseActivity {
         adaper.addFragment(new HomeFragment(),"HomeFragment");//index:0
         adaper.addFragment(new LoginFragment(),"LoginFragment"); // index:1
         adaper.addFragment(new RegisterFragment(),"RegisterFragment"); // index:2
-        adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index3
-
+        adaper.addFragment(new SettingFragment(),"SettingFragment");// index:3
+        adaper.addFragment(new UserProfileFragment(),"UserProfileFragment");// index:4
+        adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index 5
+        adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index 6
         viewPager.setAdapter(adaper);
     }
 
@@ -85,7 +89,7 @@ public class MainActivity extends BaseActivity {
                         setViewPager(0);
                         break;
                     case R.id.rb_main_me:
-                        setViewPager(1);
+                        setViewPager(4);
                         break;
                 }
             }

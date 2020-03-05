@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.login_demo.base.BaseActivity;
 import com.example.login_demo.main.home.HomeFragment;
+import com.example.login_demo.main.home.view.HomeDetailActivity;
 import com.example.login_demo.main.user.ForgetPasswordFragment;
 import com.example.login_demo.main.user.LoginFragment;
 import com.example.login_demo.main.user.RegisterFragment;
@@ -64,6 +65,7 @@ public class MainActivity extends BaseActivity {
         adaper.addFragment(new UserProfileFragment(),"UserProfileFragment");// index:4
         adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index 5
         adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index 6
+        adaper.addFragment(new HomeDetailActivity(),"HomeDetailActivity");// index7
         viewPager.setAdapter(adaper);
     }
 
@@ -79,6 +81,8 @@ public class MainActivity extends BaseActivity {
 
     private void initCheckListener(Context context) {
 
+
+        rbMainHome.setChecked(true);
 
         rgMainTop.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

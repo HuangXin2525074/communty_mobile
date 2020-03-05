@@ -1,7 +1,5 @@
 package com.example.login_demo.model;
 
-import com.example.login_demo.entity.User;
-
 import java.util.Map;
 
 public class register {
@@ -10,7 +8,6 @@ public class register {
 
    private String msg;
 
-   private User user;
 
 
    Map<String,Object> map;
@@ -26,11 +23,6 @@ public class register {
         this.msg = msg;
     }
 
-    public register(int code,String msg, User user){
-        this.code =code;
-        this.msg = msg;
-        this.user = user;
-    }
 
 
     public int getCode() {
@@ -60,12 +52,4 @@ public class register {
         return this;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public register setUser(User user) {
-        this.user = user;
-        return this;
-    }
 }

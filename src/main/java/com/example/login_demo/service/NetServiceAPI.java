@@ -1,17 +1,16 @@
 package com.example.login_demo.service;
 
-import com.example.login_demo.entity.User;
+import com.example.login_demo.model.HomeIndex;
 import com.example.login_demo.model.UserAPI;
 import com.example.login_demo.model.register;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface UserServiceAPI {
+public interface NetServiceAPI {
 
   String BASE_URL="http://192.168.1.121:8080";
 
@@ -44,5 +43,8 @@ public interface UserServiceAPI {
     Call<register> updatePassword(@Field("password")String password,@Field("newPassword")String newPassword,@Field("confirmPassword")String confirmPassword);
 
 
+    @FormUrlEncoded
+    @POST("/Community/index")
+    Call<HomeIndex> getIndex(@Field("offset")int offset, @Field("limit")int limit, @Field("orderMode")int orderMode);
 
 }

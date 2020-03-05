@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">login_demo</string>
+    <string name="app_name">community</string>
     <string name="str_main_home">Home</string>
     <string name="str_main_me">Me</string>
 </resources>

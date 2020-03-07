@@ -2,6 +2,7 @@ package com.example.login_demo;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.example.login_demo.base.BaseActivity;
 import com.example.login_demo.main.home.HomeFragment;
 import com.example.login_demo.main.home.view.HomeDetailActivity;
+import com.example.login_demo.main.refresh.RefreshFragment;
 import com.example.login_demo.main.user.ForgetPasswordFragment;
 import com.example.login_demo.main.user.LoginFragment;
 import com.example.login_demo.main.user.RegisterFragment;
@@ -103,9 +105,8 @@ public class MainActivity extends BaseActivity {
 
     }
 
-
-
-
-
-
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
 }

@@ -47,4 +47,8 @@ public interface NetServiceAPI {
     @POST("/Community/index")
     Call<HomeIndex> getIndex(@Field("offset")int offset, @Field("limit")int limit, @Field("orderMode")int orderMode);
 
+    @FormUrlEncoded
+   @POST("/Community/discuss/add")
+   Call<register> addDiscussPost(@Field("title")String title,@Field("content")String content);
+
 }

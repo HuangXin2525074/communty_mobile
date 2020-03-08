@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.login_demo.base.BaseActivity;
+import com.example.login_demo.main.home.AddPostFragment;
 import com.example.login_demo.main.home.HomeFragment;
 import com.example.login_demo.main.home.view.HomeDetailActivity;
 import com.example.login_demo.main.refresh.RefreshFragment;
@@ -68,6 +69,7 @@ public class MainActivity extends BaseActivity {
         adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index 5
         adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index 6
         adaper.addFragment(new HomeDetailActivity(),"HomeDetailActivity");// index7
+        adaper.addFragment(new AddPostFragment(),"AddPostFragment");// index8
         viewPager.setAdapter(adaper);
     }
 

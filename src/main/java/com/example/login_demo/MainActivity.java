@@ -53,14 +53,14 @@ public class MainActivity extends BaseActivity {
 
         mViewPager =findViewById(R.id.fl_main_content);
 
-        setupViewPager(mViewPager);
+        setupViewPager(mViewPager,sectionStatePagerAdaper);
 
         initCheckListener(this);
 
     }
 
-    private void setupViewPager(ViewPager viewPager){
-        SectionStatePagerAdaper adaper = new SectionStatePagerAdaper(getSupportFragmentManager());
+    private void setupViewPager(ViewPager viewPager,SectionStatePagerAdaper adaper){
+       // SectionStatePagerAdaper adaper = new SectionStatePagerAdaper(getSupportFragmentManager());
         adaper.addFragment(new HomeFragment(),"HomeFragment");//index:0
         adaper.addFragment(new LoginFragment(),"LoginFragment"); // index:1
         adaper.addFragment(new RegisterFragment(),"RegisterFragment"); // index:2
@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity {
         adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index 6
         adaper.addFragment(new HomeDetailActivity(),"HomeDetailActivity");// index7
         adaper.addFragment(new AddPostFragment(),"AddPostFragment");// index8
+
         viewPager.setAdapter(adaper);
     }
 
@@ -77,6 +78,12 @@ public class MainActivity extends BaseActivity {
         mViewPager.setCurrentItem(fragmentNumber);
 
     }
+
+    public void setDetailItemId(int postId){
+      HomeDetailActivity homeDetailActivity =(HomeDetailActivity)sectionStatePagerAdaper.getItem(7);
+      homeDetailActivity.setPostId(postId);
+    }
+
 
     @Override
     public void afterBindView() {

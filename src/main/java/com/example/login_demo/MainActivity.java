@@ -1,6 +1,8 @@
 package com.example.login_demo;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.login_demo.base.BaseActivity;
 import com.example.login_demo.main.home.AddPostFragment;
+import com.example.login_demo.main.home.AddPostImageFragment;
 import com.example.login_demo.main.home.HomeFragment;
 import com.example.login_demo.main.home.view.HomeDetailActivity;
 import com.example.login_demo.main.refresh.RefreshFragment;
@@ -20,6 +23,7 @@ import com.example.login_demo.main.user.SettingFragment;
 import com.example.login_demo.main.user.UserProfileFragment;
 import com.example.login_demo.until.ViewInject;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
@@ -44,6 +48,8 @@ public class MainActivity extends BaseActivity {
 
     private ViewPager mViewPager;
 
+    public static final int EXTERNAL_STORAGE_REQ_CODE = 10 ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,14 @@ public class MainActivity extends BaseActivity {
         setupViewPager(mViewPager,sectionStatePagerAdaper);
 
         initCheckListener(this);
+
+        int permission = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // 请求权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_REQ_CODE);
+        }
 
     }
 
@@ -70,6 +84,7 @@ public class MainActivity extends BaseActivity {
         adaper.addFragment(new ForgetPasswordFragment(),"ForgetPasswordFragment");// index 6
         adaper.addFragment(new HomeDetailActivity(),"HomeDetailActivity");// index7
         adaper.addFragment(new AddPostFragment(),"AddPostFragment");// index8
+        adaper.addFragment(new AddPostImageFragment(),"AddPostImageFragment");//index9
 
         viewPager.setAdapter(adaper);
     }
@@ -82,6 +97,11 @@ public class MainActivity extends BaseActivity {
     public void setDetailItemId(int postId){
       HomeDetailActivity homeDetailActivity =(HomeDetailActivity)sectionStatePagerAdaper.getItem(7);
       homeDetailActivity.setPostId(postId);
+    }
+
+    public void setPostId(int postId){
+        AddPostImageFragment addPostImageFragment=(AddPostImageFragment)sectionStatePagerAdaper.getItem(9);
+        addPostImageFragment.setPostId(postId);
     }
 
 
